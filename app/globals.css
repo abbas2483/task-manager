@@ -156,3 +156,32 @@ input:focus, textarea:focus, select:focus {
     grid-template-columns: 1fr;
   }
 }
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  :root {
+    --space-6: 16px;
+    --space-8: 24px;
+    --space-10: 32px;
+    --space-12: 40px;
+    --space-16: 48px;
+  }
+}
+
+/* Mobile sidebar hidden by default */
+@media (max-width: 1024px) {
+  .sidebar-desktop {
+    display: none;
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Project detail grid responsive */
+@media (max-width: 1024px) {
+  .project-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

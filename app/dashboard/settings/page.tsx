@@ -42,7 +42,7 @@ export default function SettingsPage() {
     if (user) load()
   }, [user, router])
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!user) return
 

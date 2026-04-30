@@ -234,7 +234,7 @@ export default function ProjectDetailPage() {
 
   useEffect(() => { if (user) loadProject() }, [user, loadProject])
 
-  const handleCreateTask = async (e: React.FormEvent) => {
+  const handleCreateTask = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!taskForm.title.trim() || !user) return
     setActionLoading(true)
@@ -272,7 +272,7 @@ export default function ProjectDetailPage() {
     setTasks(prev => prev.filter(t => t.id !== taskId))
   }
 
-  const handleAddMember = async (e: React.FormEvent) => {
+  const handleAddMember = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setActionLoading(true)
     setActionError('')
@@ -539,7 +539,7 @@ export default function ProjectDetailPage() {
       )}
 
       {/* Content */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: 16 }} className="project-detail-grid">
         {/* Tasks */}
         <div>
           <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>

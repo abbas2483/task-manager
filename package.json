@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "powershell -Command \"if (Test-Path .next) { Remove-Item -Recurse -Force .next }; if (Test-Path tsconfig.tsbuildinfo) { Remove-Item -Force tsconfig.tsbuildinfo }\"",
+    "rebuild": "npm run clean && npm run build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

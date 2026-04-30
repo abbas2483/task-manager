@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Sidebar from '@/components/Sidebar'
 import Header from '@/components/Header'
@@ -14,6 +14,7 @@ export default function DashboardLayout({
 }) {
   const { user, loading } = useAuth()
   const router = useRouter()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
     if (!loading && !user) {
@@ -64,9 +65,49 @@ export default function DashboardLayout({
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' }}>
-      <Sidebar />
-      <div style={{ flex: 1, marginLeft: 260, display: 'flex', flexDirection: 'column' }}>
-        <Header user={user} />
+      {/* Desktop Sidebar */}
+      <div className="sidebar-desktop">
+        <Sidebar />
+      </div>
+
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSidebarOpen(false)}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(0,0,0,0.6)',
+                zIndex: 99,
+              }}
+            />
+            <motion.div
+              initial={{ x: -260 }}
+              animate={{ x: 0 }}
+              exit={{ x: -260 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                width: 260,
+                zIndex: 100,
+              }}
+            >
+              <Sidebar onClose={() => setSidebarOpen(false)} />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <div className="main-content" style={{ flex: 1, marginLeft: 260, display: 'flex', flexDirection: 'column' }}>
+        <Header user={user} onMenuClick={() => setSidebarOpen(true)} />
         <main style={{ flex: 1, padding: 'var(--space-6)', maxWidth: 1280, width: '100%' }}>
           <AnimatePresence mode="wait">
             <motion.div

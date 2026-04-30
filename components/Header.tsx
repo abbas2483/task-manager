@@ -8,13 +8,14 @@ import { space, radius, colors, shadows } from '@/lib/cssVars'
 
 interface HeaderProps {
   user: { displayName?: string | null; email: string | null }
+  onMenuClick?: () => void
 }
 
 function getDisplayName(displayName: string | null | undefined, email: string | null) {
   return displayName || email?.split('@')[0] || 'User'
 }
 
-export default function Header({ user }: HeaderProps) {
+export default function Header({ user, onMenuClick }: HeaderProps) {
   const [showMenu, setShowMenu] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
   const router = useRouter()
@@ -36,10 +37,31 @@ export default function Header({ user }: HeaderProps) {
 
   return (
     <header style={{
-      height: 64, display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+      height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: `0 ${space[6]}`, borderBottom: `1px solid ${colors.borderSubtle}`,
       background: colors.bgSecondary,
     }}>
+      {/* Mobile menu button */}
+      {onMenuClick && (
+        <button
+          onClick={onMenuClick}
+          className="mobile-menu-btn"
+          style={{
+            display: 'none',
+            padding: space[2],
+            background: 'none',
+            border: 'none',
+            color: colors.textPrimary,
+            cursor: 'pointer',
+            fontSize: 24,
+          }}
+        >
+          ☰
+        </button>
+      )}
+
+      <div style={{ flex: 1 }} />
+
       <div style={{ position: 'relative' }}>
         <motion.button
           onClick={() => setShowMenu(!showMenu)}
@@ -55,7 +77,7 @@ export default function Header({ user }: HeaderProps) {
             whileHover={{ rotate: 5 }}
             style={{
               width: 36, height: 36, borderRadius: radius.md,
-              background: `linear-gradient(135deg, ${colors.accentGreen}, ${colors.accentBlue})`,
+              background: colors.accentGreen,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 13, fontWeight: 800, color: '#000',
             }}
@@ -121,6 +143,14 @@ export default function Header({ user }: HeaderProps) {
           )}
         </AnimatePresence>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          .mobile-menu-btn {
+            display: block !important;
+          }
+        }
+      `}</style>
     </header>
   )
 }

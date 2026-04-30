@@ -8,26 +8,6 @@ import { space, radius, colors, shadows } from '@/lib/cssVars'
 export default function HomePage() {
   return (
     <div style={{ background: colors.bgPrimary, minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
-      {/* Animated background gradient */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        style={{
-          position: 'absolute',
-          top: -200,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 800,
-          height: 800,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, rgba(59,130,246,0.08) 40%, transparent 70%)',
-          filter: 'blur(60px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
-
       {/* Nav */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
@@ -50,7 +30,7 @@ export default function HomePage() {
           >
             ◆ TaskFlow
           </motion.span>
-          <div style={{ display: 'flex', gap: space[3], alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: space[3], alignItems: 'center', flexWrap: 'wrap' }}>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link href="/auth/login" style={{
                 padding: '10px 22px', borderRadius: radius.md, fontSize: 14, fontWeight: 500,
@@ -65,7 +45,6 @@ export default function HomePage() {
                 padding: '10px 22px', borderRadius: radius.md, fontSize: 14, fontWeight: 600,
                 color: '#000', background: colors.accentGreen,
                 textDecoration: 'none', display: 'inline-block',
-                boxShadow: '0 4px 12px rgba(16,185,129,0.3)',
               }}>
                 Get Started
               </Link>
@@ -99,8 +78,7 @@ export default function HomePage() {
           <h1 style={{
             fontSize: 'clamp(40px, 7vw, 72px)', fontWeight: 800,
             lineHeight: 1.1, marginBottom: space[6],
-            background: `linear-gradient(135deg, #fff 20%, ${colors.accentGreen} 60%, ${colors.accentBlue})`,
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            color: colors.textPrimary,
             letterSpacing: '-0.03em',
           }}>
             Manage Projects.<br />Ship Faster.
@@ -150,9 +128,9 @@ export default function HomePage() {
             gap: space[5],
           }}>
             {[
-              { icon: '📁', title: 'Project Management', desc: 'Create projects with teams. Admin and Member roles with proper access control.', color: colors.accentBlue, gradient: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.05))' },
-              { icon: '✅', title: 'Task Tracking', desc: 'Kanban-style boards with To Do, In Progress, and Done columns. Priorities and due dates.', color: colors.accentGreen, gradient: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.05))' },
-              { icon: '📊', title: 'Dashboard Analytics', desc: 'Real-time stats on tasks by status, overdue items, and team productivity at a glance.', color: colors.accentPurple, gradient: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(139,92,246,0.05))' },
+              { icon: '📁', title: 'Project Management', desc: 'Create projects with teams. Admin and Member roles with proper access control.', color: colors.accentBlue },
+              { icon: '✅', title: 'Task Tracking', desc: 'Kanban-style boards with To Do, In Progress, and Done columns. Priorities and due dates.', color: colors.accentGreen },
+              { icon: '📊', title: 'Dashboard Analytics', desc: 'Real-time stats on tasks by status, overdue items, and team productivity at a glance.', color: colors.accentPurple },
             ].map((f, i) => (
               <motion.div
                 key={f.title}
@@ -161,7 +139,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.8 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -6, boxShadow: shadows.lg }}
                 style={{
-                  background: f.gradient,
+                  background: colors.bgCard,
                   border: `1px solid ${colors.borderSubtle}`,
                   borderRadius: radius.xl, padding: space[8],
                   backdropFilter: 'blur(10px)',

@@ -4,7 +4,9 @@ import {
   signOut as firebaseSignOut,
   onAuthStateChanged as firebaseOnAuthStateChanged,
   User,
-  updateProfile
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth'
 import { auth } from './config'
 
@@ -28,6 +30,16 @@ export const signUp = async (email: string, password: string, fullName?: string)
 export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    return { user: userCredential.user, error: null }
+  } catch (error: any) {
+    return { user: null, error: error.message }
+  }
+}
+
+export const signInWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider()
+    const userCredential = await signInWithPopup(auth, provider)
     return { user: userCredential.user, error: null }
   } catch (error: any) {
     return { user: null, error: error.message }
