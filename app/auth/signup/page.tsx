@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-
-export const dynamic = 'force-dynamic'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { signUp, signInWithGoogle } from '@/lib/firebase/auth'

@@ -1,9 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-
-export const dynamic = 'force-dynamic'
-
 import { createProject } from '@/lib/firebase/projects'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'

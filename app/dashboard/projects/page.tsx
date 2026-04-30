@@ -2,8 +2,6 @@
 
 import { space, radius, colors, shadows } from '@/lib/cssVars'
 
-export const dynamic = 'force-dynamic'
-
 import { useState, useEffect, memo } from 'react'
 import { getProjects } from '@/lib/firebase/projects'
 import { useAuth } from '@/lib/firebase/AuthContext'
