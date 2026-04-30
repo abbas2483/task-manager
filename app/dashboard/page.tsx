@@ -98,6 +98,52 @@ export default function DashboardPage() {
     { label: 'Overdue', value: stats.overdueTasks, color: colors.accentRed, icon: '!' },
   ], [stats])
 
+  const handleExportData = () => {
+    try {
+      const csvRows = []
+      
+      csvRows.push('Dashboard Report')
+      csvRows.push(`Generated: ${new Date().toLocaleString()}`)
+      csvRows.push(`User: ${user?.email || 'Unknown'}`)
+      csvRows.push('')
+      
+      csvRows.push('STATISTICS SUMMARY')
+      csvRows.push('Metric,Value')
+      csvRows.push(`Total Projects,${stats.totalProjects}`)
+      csvRows.push(`Total Tasks,${stats.totalTasks}`)
+      csvRows.push(`To Do Tasks,${stats.todoTasks}`)
+      csvRows.push(`In Progress Tasks,${stats.inProgressTasks}`)
+      csvRows.push(`Done Tasks,${stats.doneTasks}`)
+      csvRows.push(`Overdue Tasks,${stats.overdueTasks}`)
+      csvRows.push('')
+      
+      csvRows.push('PROJECTS LIST')
+      csvRows.push('Project Name,Total Tasks,Members')
+      
+      projects.forEach(project => {
+        csvRows.push(`"${project.name}",${project.task_count || 0},${project.member_count || 0}`)
+      })
+      
+      const csvContent = csvRows.join('\n')
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+      const link = document.createElement('a')
+      const url = URL.createObjectURL(blob)
+      
+      link.setAttribute('href', url)
+      link.setAttribute('download', `dashboard-report-${new Date().toISOString().split('T')[0]}.csv`)
+      link.style.visibility = 'hidden'
+      
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      
+      URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Export error:', error)
+      alert('Failed to export data. Please try again.')
+    }
+  }
+
   if (loading) {
     return (
       <div>
@@ -118,13 +164,33 @@ export default function DashboardPage() {
     <div>
       {/* Welcome */}
       <AnimatedContainer animation="fadeInUp" delay={0.1}>
-        <div style={{ marginBottom: space[8] }}>
-          <h1 style={{ fontSize: 32, fontWeight: 800, marginBottom: space[1], letterSpacing: '-0.02em' }}>
-            Welcome back, {user?.displayName || 'User'} 👋
-          </h1>
-          <p style={{ color: colors.textMuted, fontSize: 15 }}>
-            Here's an overview of your projects and tasks.
-          </p>
+        <div style={{ marginBottom: space[8], display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: space[4] }}>
+          <div>
+            <h1 style={{ fontSize: 32, fontWeight: 800, marginBottom: space[1], letterSpacing: '-0.02em' }}>
+              Welcome back, {user?.displayName || 'User'} 👋
+            </h1>
+            <p style={{ color: colors.textMuted, fontSize: 15 }}>
+              Here's an overview of your projects and tasks.
+            </p>
+          </div>
+          <button
+            onClick={handleExportData}
+            style={{
+              padding: '10px 20px',
+              background: colors.accentGreen,
+              color: '#000',
+              border: 'none',
+              borderRadius: radius.md,
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: space[2],
+            }}
+          >
+            <span>📥</span> Export Data
+          </button>
         </div>
       </AnimatedContainer>
 
