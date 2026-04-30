@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { space, radius, colors, shadows } from '@/lib/cssVars'
 
 import { useState, useEffect, memo } from 'react'
