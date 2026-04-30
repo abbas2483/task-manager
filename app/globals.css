@@ -3,28 +3,28 @@
 @tailwind utilities;
 
 :root {
-  /* Backgrounds - Enhanced depth */
-  --bg-primary: #0a0a12;
-  --bg-secondary: #12121d;
-  --bg-card: #1a1a28;
-  --bg-elevated: #22223a;
-  --bg-hover: #2a2a42;
+  /* Backgrounds - Light theme with proper contrast */
+  --bg-primary: #f7fafc;
+  --bg-secondary: #edf2f7;
+  --bg-card: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-hover: #edf2f7;
   
-  /* Borders - Better contrast */
-  --border-subtle: #2a2a42;
-  --border-hover: #3a3a5c;
-  --border-focus: #4a4a6c;
+  /* Borders - Light theme */
+  --border-subtle: #e2e8f0;
+  --border-hover: #cbd5e0;
+  --border-focus: #a0aec0;
   
-  /* Text - Improved hierarchy */
-  --text-primary: #f5f5f7;
-  --text-secondary: #a8a8b8;
-  --text-muted: #6e6e80;
-  --text-disabled: #4a4a5c;
+  /* Text - Light theme */
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --text-disabled: #a0aec0;
   
-  /* Accent colors - Vibrant & accessible */
-  --accent-green: #10b981;
-  --accent-green-hover: #059669;
-  --accent-green-light: rgba(16, 185, 129, 0.1);
+  /* Accent colors - Blue theme */
+  --accent-green: #3b82f6;
+  --accent-green-hover: #2563eb;
+  --accent-green-light: rgba(59, 130, 246, 0.1);
   --accent-blue: #3b82f6;
   --accent-blue-light: rgba(59, 130, 246, 0.1);
   --accent-purple: #8b5cf6;
@@ -35,11 +35,11 @@
   --accent-red-light: rgba(239, 68, 68, 0.1);
   --accent-cyan: #06b6d4;
   
-  /* Shadows - Depth & elevation */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+  /* Shadows - Light theme */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
   
   /* Spacing scale - 4pt system */
   --space-1: 4px;
@@ -92,7 +92,7 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-secondary);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-subtle);
@@ -115,11 +115,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 input:focus, textarea:focus, select:focus {
   border-color: var(--border-focus);
   box-shadow: 0 0 0 3px var(--accent-green-light);
+  outline: none;
 }
 
 ::selection {
-  background: rgba(16, 185, 129, 0.3);
-  color: #fff;
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--text-primary);
 }
 
 /* Reduced motion support */
