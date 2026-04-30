@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback, memo } from 'react'
+
+export const dynamic = 'force-dynamic'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/lib/firebase/AuthContext'
